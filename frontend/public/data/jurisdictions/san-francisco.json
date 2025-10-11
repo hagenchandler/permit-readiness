@@ -1,0 +1,202 @@
+{
+  "jurisdiction": {
+    "id": "sf",
+    "name": "San Francisco",
+    "state": "CA",
+    "type": "city",
+    "website": "https://sfdbi.org",
+    "contactInfo": {
+      "phone": "415-558-6088",
+      "email": "dbiweb@sfgov.org",
+      "address": "49 South Van Ness Avenue, San Francisco, CA 94103"
+    }
+  },
+  "version": "2024.1",
+  "effectiveDate": "2024-01-01",
+  "lastUpdated": "2024-10-01T00:00:00Z",
+  "permitTypes": ["new-construction", "alteration", "addition"],
+  "checklist": [
+    {
+      "id": "site-plan",
+      "name": "Site Plan with Building Location",
+      "description": "Detailed site plan showing building footprint, setbacks, and surrounding context",
+      "required": true,
+      "category": "site-plan",
+      "acceptedFormats": ["PDF", "DWG"],
+      "maxFileSize": 50,
+      "validationRules": {
+        "requiredKeywords": ["site plan", "setback", "lot"],
+        "minPages": 1,
+        "mustBeProfessionallySealed": true
+      },
+      "notes": "Must show existing and proposed conditions"
+    },
+    {
+      "id": "arch-drawings",
+      "name": "Architectural Drawings",
+      "description": "Complete set of architectural plans, elevations, sections, and details",
+      "required": true,
+      "category": "architectural",
+      "acceptedFormats": ["PDF", "DWG"],
+      "maxFileSize": 100,
+      "validationRules": {
+        "minPages": 5,
+        "mustBeProfessionallySealed": true,
+        "requiredKeywords": ["floor plan", "elevation", "section"]
+      },
+      "notes": "Must include all four elevations and typical wall sections"
+    },
+    {
+      "id": "structural",
+      "name": "Structural Plans and Calculations",
+      "description": "Structural engineering drawings and design calculations",
+      "required": true,
+      "category": "structural",
+      "acceptedFormats": ["PDF", "DWG"],
+      "maxFileSize": 100,
+      "validationRules": {
+        "mustBeProfessionallySealed": true,
+        "requiredKeywords": ["structural", "seismic", "lateral"]
+      },
+      "notes": "Must address seismic design per ASCE 7"
+    },
+    {
+      "id": "geotech",
+      "name": "Geotechnical Report",
+      "description": "Subsurface investigation and foundation recommendations",
+      "required": true,
+      "category": "structural",
+      "acceptedFormats": ["PDF"],
+      "maxFileSize": 50,
+      "validationRules": {
+        "requiredKeywords": ["geotechnical", "soil", "foundation"],
+        "mustBeProfessionallySealed": true
+      },
+      "notes": "Required for all new construction and major alterations"
+    },
+    {
+      "id": "title24",
+      "name": "Title 24 Energy Compliance",
+      "description": "California Energy Code compliance documentation",
+      "required": true,
+      "category": "energy-compliance",
+      "acceptedFormats": ["PDF", "XML"],
+      "maxFileSize": 20,
+      "validationRules": {
+        "requiredKeywords": ["Title 24", "energy", "CF-1R"]
+      },
+      "exampleUrl": "https://www.energy.ca.gov/programs-and-topics/programs/building-energy-efficiency-standards",
+      "notes": "Must include registered CF-1R forms"
+    },
+    {
+      "id": "green-building",
+      "name": "Green Building Checklist",
+      "description": "SF Green Building Code compliance checklist",
+      "required": true,
+      "category": "environmental",
+      "acceptedFormats": ["PDF"],
+      "maxFileSize": 10,
+      "validationRules": {
+        "requiredKeywords": ["green building", "sustainable"]
+      },
+      "notes": "San Francisco has stricter requirements than state CalGreen"
+    },
+    {
+      "id": "fire-life-safety",
+      "name": "Fire/Life Safety Plans",
+      "description": "Fire protection system plans and life safety features",
+      "required": true,
+      "category": "fire-safety",
+      "acceptedFormats": ["PDF", "DWG"],
+      "maxFileSize": 50,
+      "validationRules": {
+        "requiredKeywords": ["fire", "sprinkler", "egress"],
+        "mustBeProfessionallySealed": true
+      },
+      "notes": "Include means of egress and fire alarm systems"
+    },
+    {
+      "id": "accessibility",
+      "name": "Accessibility Compliance (CASp)",
+      "description": "California accessibility requirements and CASp inspection",
+      "required": true,
+      "category": "accessibility",
+      "acceptedFormats": ["PDF"],
+      "maxFileSize": 20,
+      "validationRules": {
+        "requiredKeywords": ["accessibility", "ADA", "CBC Chapter 11B"]
+      },
+      "notes": "Show compliance with Title 24 Part 2 accessibility standards"
+    },
+    {
+      "id": "stormwater",
+      "name": "Stormwater Management Plan",
+      "description": "Stormwater control and water quality measures",
+      "required": true,
+      "category": "environmental",
+      "acceptedFormats": ["PDF"],
+      "maxFileSize": 30,
+      "validationRules": {
+        "requiredKeywords": ["stormwater", "drainage", "BMP"]
+      },
+      "notes": "Must comply with SF Public Utilities Commission requirements"
+    },
+    {
+      "id": "transit-impact",
+      "name": "Transit Impact Analysis",
+      "description": "Transportation demand management and transit analysis",
+      "required": false,
+      "category": "other",
+      "acceptedFormats": ["PDF"],
+      "maxFileSize": 50,
+      "conditionalRequirement": {
+        "condition": "Required for projects over 25,000 sq ft or 20+ residential units",
+        "dependsOn": []
+      },
+      "notes": "Coordinate with Planning Department"
+    },
+    {
+      "id": "historic",
+      "name": "Historic Preservation Review",
+      "description": "Review for buildings 50+ years old or in historic districts",
+      "required": false,
+      "category": "administrative",
+      "acceptedFormats": ["PDF"],
+      "maxFileSize": 50,
+      "conditionalRequirement": {
+        "condition": "Required for historic resources and buildings in historic districts",
+        "dependsOn": []
+      },
+      "exampleUrl": "https://sfplanning.org/historic-preservation",
+      "notes": "Check if property is a designated landmark or in historic district"
+    },
+    {
+      "id": "shadow",
+      "name": "Shadow Analysis",
+      "description": "Analysis of shadows cast on public parks and open spaces",
+      "required": false,
+      "category": "environmental",
+      "acceptedFormats": ["PDF"],
+      "maxFileSize": 30,
+      "conditionalRequirement": {
+        "condition": "Required for buildings over 40 feet near protected parks",
+        "dependsOn": []
+      },
+      "notes": "Required to protect sunlight access to public parks per Proposition K"
+    }
+  ],
+  "generalRequirements": {
+    "submissionMethod": ["electronic"],
+    "electronicPortal": "SF Planning ePlan",
+    "numberOfCopies": 0,
+    "fees": {
+      "calculationMethod": "Based on construction valuation and project type",
+      "feeScheduleUrl": "https://sfdbi.org/fee-schedule"
+    }
+  },
+  "processingTimeline": {
+    "averageReviewDays": 25,
+    "expeditedAvailable": true,
+    "expeditedDays": 7
+  }
+}

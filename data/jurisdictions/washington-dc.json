@@ -1,0 +1,227 @@
+{
+  "jurisdiction": {
+    "id": "dc",
+    "name": "Washington, D.C.",
+    "state": "DC",
+    "type": "city",
+    "website": "https://dcra.dc.gov",
+    "contactInfo": {
+      "phone": "202-442-4400",
+      "email": "dcra@dc.gov",
+      "address": "1100 4th Street SW, Washington, DC 20024"
+    }
+  },
+  "version": "2024.1",
+  "effectiveDate": "2024-01-01",
+  "lastUpdated": "2024-10-01T00:00:00Z",
+  "permitTypes": ["new-construction", "alteration", "addition"],
+  "checklist": [
+    {
+      "id": "plot-plan",
+      "name": "Plot Plan/Survey",
+      "description": "Certified survey showing lot boundaries, existing structures, and proposed building location",
+      "required": true,
+      "category": "site-plan",
+      "acceptedFormats": ["PDF", "DWG"],
+      "maxFileSize": 50,
+      "validationRules": {
+        "requiredKeywords": ["survey", "plot plan", "boundary"],
+        "minPages": 1,
+        "mustBeProfessionallySealed": true
+      },
+      "notes": "Must be prepared by DC-licensed surveyor"
+    },
+    {
+      "id": "arch-plans",
+      "name": "Architectural Plans (Floor Plans, Elevations)",
+      "description": "Complete architectural drawings showing all floor plans and building elevations",
+      "required": true,
+      "category": "architectural",
+      "acceptedFormats": ["PDF", "DWG"],
+      "maxFileSize": 100,
+      "validationRules": {
+        "minPages": 4,
+        "mustBeProfessionallySealed": true,
+        "requiredKeywords": ["floor plan", "elevation", "architectural"]
+      },
+      "notes": "Must be stamped by DC-registered architect"
+    },
+    {
+      "id": "structural",
+      "name": "Structural Drawings",
+      "description": "Structural plans, foundation details, and engineering calculations",
+      "required": true,
+      "category": "structural",
+      "acceptedFormats": ["PDF", "DWG"],
+      "maxFileSize": 100,
+      "validationRules": {
+        "mustBeProfessionallySealed": true,
+        "requiredKeywords": ["structural", "foundation", "load"]
+      },
+      "notes": "Must be stamped by DC-licensed Professional Engineer"
+    },
+    {
+      "id": "zoning",
+      "name": "Zoning Compliance Statement",
+      "description": "Detailed zoning analysis demonstrating compliance with DC Zoning Regulations",
+      "required": true,
+      "category": "zoning",
+      "acceptedFormats": ["PDF", "DOCX"],
+      "maxFileSize": 20,
+      "validationRules": {
+        "requiredKeywords": ["zoning", "compliance", "FAR"]
+      },
+      "notes": "Include calculations for FAR, height, lot occupancy, and parking"
+    },
+    {
+      "id": "green-building",
+      "name": "Green Building Checklist",
+      "description": "DC Green Building Act compliance documentation",
+      "required": true,
+      "category": "environmental",
+      "acceptedFormats": ["PDF"],
+      "maxFileSize": 15,
+      "validationRules": {
+        "requiredKeywords": ["green building", "LEED", "sustainable"]
+      },
+      "exampleUrl": "https://doee.dc.gov/green-building",
+      "notes": "Projects over 10,000 sq ft must meet LEED or equivalent"
+    },
+    {
+      "id": "energy-code",
+      "name": "Energy Code Compliance (REScheck/COMcheck)",
+      "description": "Energy code compliance calculations and forms",
+      "required": true,
+      "category": "energy-compliance",
+      "acceptedFormats": ["PDF", "XML"],
+      "maxFileSize": 20,
+      "validationRules": {
+        "requiredKeywords": ["energy", "REScheck", "COMcheck"]
+      },
+      "notes": "Use DOE REScheck for residential, COMcheck for commercial"
+    },
+    {
+      "id": "electrical",
+      "name": "Electrical Plans",
+      "description": "Electrical system plans showing service, panels, circuits, and devices",
+      "required": true,
+      "category": "electrical",
+      "acceptedFormats": ["PDF", "DWG"],
+      "maxFileSize": 50,
+      "validationRules": {
+        "requiredKeywords": ["electrical", "panel", "circuit"]
+      },
+      "notes": "Include panel schedules, load calculations, and service details"
+    },
+    {
+      "id": "plumbing",
+      "name": "Plumbing Plans",
+      "description": "Plumbing system layout including water supply, drainage, and fixtures",
+      "required": true,
+      "category": "plumbing",
+      "acceptedFormats": ["PDF", "DWG"],
+      "maxFileSize": 50,
+      "validationRules": {
+        "requiredKeywords": ["plumbing", "water", "sanitary"]
+      },
+      "notes": "Show all fixtures, pipe sizes, and connections to utilities"
+    },
+    {
+      "id": "mechanical",
+      "name": "Mechanical Plans",
+      "description": "HVAC system plans and equipment specifications",
+      "required": true,
+      "category": "mechanical",
+      "acceptedFormats": ["PDF", "DWG"],
+      "maxFileSize": 50,
+      "validationRules": {
+        "requiredKeywords": ["mechanical", "HVAC", "heating"]
+      },
+      "notes": "Include equipment schedules and load calculations"
+    },
+    {
+      "id": "fire-alarm",
+      "name": "Fire Alarm and Suppression Plans",
+      "description": "Fire protection system plans including alarms and sprinklers",
+      "required": true,
+      "category": "fire-safety",
+      "acceptedFormats": ["PDF", "DWG"],
+      "maxFileSize": 50,
+      "validationRules": {
+        "requiredKeywords": ["fire alarm", "sprinkler", "fire protection"],
+        "mustBeProfessionallySealed": true
+      },
+      "notes": "Required for most commercial and multi-family buildings"
+    },
+    {
+      "id": "stormwater",
+      "name": "Stormwater Management Plan",
+      "description": "Stormwater control and drainage design",
+      "required": true,
+      "category": "environmental",
+      "acceptedFormats": ["PDF"],
+      "maxFileSize": 30,
+      "validationRules": {
+        "requiredKeywords": ["stormwater", "drainage", "retention"]
+      },
+      "notes": "Must comply with DC Department of Energy and Environment requirements"
+    },
+    {
+      "id": "traffic",
+      "name": "Traffic Impact Study",
+      "description": "Transportation impact analysis for projects affecting traffic patterns",
+      "required": false,
+      "category": "other",
+      "acceptedFormats": ["PDF"],
+      "maxFileSize": 50,
+      "conditionalRequirement": {
+        "condition": "Required for projects generating significant traffic (typically 100+ trips in peak hour)",
+        "dependsOn": []
+      },
+      "notes": "Coordinate with DC Department of Transportation (DDOT)"
+    },
+    {
+      "id": "historic",
+      "name": "Historic Preservation Review (HPRB)",
+      "description": "Historic Preservation Review Board approval",
+      "required": false,
+      "category": "administrative",
+      "acceptedFormats": ["PDF"],
+      "maxFileSize": 50,
+      "conditionalRequirement": {
+        "condition": "Required for properties in historic districts or designated landmarks",
+        "dependsOn": []
+      },
+      "exampleUrl": "https://planning.dc.gov/page/historic-preservation-review-board-hprb",
+      "notes": "Check if property is in a historic district before applying"
+    },
+    {
+      "id": "public-space",
+      "name": "Public Space Application",
+      "description": "DDOT public space permit for work in public right-of-way",
+      "required": false,
+      "category": "administrative",
+      "acceptedFormats": ["PDF"],
+      "maxFileSize": 30,
+      "conditionalRequirement": {
+        "condition": "Required if construction affects sidewalks, streets, or other public space",
+        "dependsOn": []
+      },
+      "notes": "Separate permit required from DDOT Public Space Division"
+    }
+  ],
+  "generalRequirements": {
+    "submissionMethod": ["electronic"],
+    "electronicPortal": "ePLANS DC",
+    "numberOfCopies": 0,
+    "fees": {
+      "calculationMethod": "Based on construction type and estimated cost",
+      "feeScheduleUrl": "https://dcra.dc.gov/page/dcra-fee-schedule"
+    }
+  },
+  "processingTimeline": {
+    "averageReviewDays": 28,
+    "expeditedAvailable": true,
+    "expeditedDays": 10
+  }
+}

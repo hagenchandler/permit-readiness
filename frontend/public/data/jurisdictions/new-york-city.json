@@ -1,0 +1,208 @@
+{
+  "jurisdiction": {
+    "id": "nyc",
+    "name": "New York City",
+    "state": "NY",
+    "type": "city",
+    "website": "https://www.nyc.gov/dob",
+    "contactInfo": {
+      "phone": "212-393-2000",
+      "email": "info@buildings.nyc.gov",
+      "address": "280 Broadway, New York, NY 10007"
+    }
+  },
+  "version": "2024.2",
+  "effectiveDate": "2024-01-01",
+  "lastUpdated": "2024-10-01T00:00:00Z",
+  "permitTypes": ["new-construction", "alteration", "addition"],
+  "checklist": [
+    {
+      "id": "pw1",
+      "name": "Applicant Statement (PW1)",
+      "description": "Official application form signed by property owner",
+      "required": true,
+      "category": "administrative",
+      "acceptedFormats": ["PDF", "DOCX"],
+      "maxFileSize": 5,
+      "notes": "Must be notarized if owner is not applicant",
+      "emptyPdfUrl": "https://www.nyc.gov/assets/buildings/pdf/pw1.pdf",
+      "validationRules": {
+        "mustContainSignature": true,
+        "requiredKeywords": ["property owner", "applicant"]
+      }
+    },
+    {
+      "id": "site-plan",
+      "name": "Site Plan with Zoning Analysis",
+      "description": "Detailed site plan showing building location, setbacks, lot coverage, and zoning compliance",
+      "required": true,
+      "category": "site-plan",
+      "acceptedFormats": ["PDF", "DWG"],
+      "maxFileSize": 50,
+      "notes": "Must show dimensions, property lines, and adjacent structures",
+      "exampleUrl": "https://www.nyc.gov/site/buildings/industry/architectural-site-plan-requirements.page",
+      "validationRules": {
+        "requiredKeywords": ["zoning", "setback", "lot line"],
+        "minPages": 1,
+        "mustBeProfessionallySealed": true
+      }
+    },
+    {
+      "id": "arch-plans",
+      "name": "Architectural Plans (Floor Plans, Elevations, Sections)",
+      "description": "Complete architectural drawings showing all floor plans, building elevations, and cross-sections",
+      "required": true,
+      "category": "architectural",
+      "acceptedFormats": ["PDF", "DWG"],
+      "maxFileSize": 100,
+      "notes": "All drawings must be to scale and include dimensions",
+      "validationRules": {
+        "minPages": 3,
+        "mustBeProfessionallySealed": true,
+        "requiredKeywords": ["elevation", "floor plan", "section"]
+      }
+    },
+    {
+      "id": "structural",
+      "name": "Structural Drawings and Calculations",
+      "description": "Structural plans and engineering calculations sealed by PE",
+      "required": true,
+      "category": "structural",
+      "acceptedFormats": ["PDF", "DWG"],
+      "maxFileSize": 100,
+      "notes": "Must include foundation, framing, and load calculations",
+      "validationRules": {
+        "mustBeProfessionallySealed": true,
+        "requiredKeywords": ["structural", "load", "foundation"]
+      }
+    },
+    {
+      "id": "plumbing",
+      "name": "Plumbing Plans",
+      "description": "Plumbing system layout and riser diagrams",
+      "required": true,
+      "category": "plumbing",
+      "acceptedFormats": ["PDF", "DWG"],
+      "maxFileSize": 50,
+      "notes": "Show all fixtures, pipes, and connections to utilities",
+      "validationRules": {
+        "requiredKeywords": ["plumbing", "fixture", "drain"],
+        "mustBeProfessionallySealed": true
+      }
+    },
+    {
+      "id": "mechanical",
+      "name": "Mechanical/HVAC Plans",
+      "description": "Heating, ventilation, and air conditioning system plans",
+      "required": true,
+      "category": "mechanical",
+      "acceptedFormats": ["PDF", "DWG"],
+      "maxFileSize": 50,
+      "notes": "Include equipment schedules and load calculations",
+      "validationRules": {
+        "requiredKeywords": ["HVAC", "mechanical", "ventilation"],
+        "mustBeProfessionallySealed": true
+      }
+    },
+    {
+      "id": "electrical",
+      "name": "Electrical Plans",
+      "description": "Electrical system layout, panel schedules, and load calculations",
+      "required": true,
+      "category": "electrical",
+      "acceptedFormats": ["PDF", "DWG"],
+      "maxFileSize": 50,
+      "notes": "Must show panel locations, circuits, and service entrance",
+      "validationRules": {
+        "requiredKeywords": ["electrical", "panel", "circuit"],
+        "mustBeProfessionallySealed": true
+      }
+    },
+    {
+      "id": "fire-alarm",
+      "name": "Fire Alarm and Sprinkler Plans",
+      "description": "Fire protection system plans including alarms and sprinklers",
+      "required": true,
+      "category": "fire-safety",
+      "acceptedFormats": ["PDF", "DWG"],
+      "maxFileSize": 50,
+      "notes": "Required for most commercial and multi-family buildings",
+      "validationRules": {
+        "requiredKeywords": ["fire alarm", "sprinkler", "fire protection"],
+        "mustBeProfessionallySealed": true
+      }
+    },
+    {
+      "id": "ecc1",
+      "name": "Energy Code Compliance (ECC1)",
+      "description": "NYC Energy Conservation Code compliance documentation",
+      "required": true,
+      "category": "energy-compliance",
+      "acceptedFormats": ["PDF"],
+      "maxFileSize": 20,
+      "notes": "Use DOB's ECC1 form or approved alternative",
+      "emptyPdfUrl": "https://www.nyc.gov/assets/buildings/pdf/ecc1.pdf",
+      "exampleUrl": "https://www.nyc.gov/site/buildings/codes/energy-conservation-code.page",
+      "validationRules": {
+        "requiredKeywords": ["energy", "ECC1", "compliance"]
+      }
+    },
+    {
+      "id": "environmental",
+      "name": "Environmental Assessment (if applicable)",
+      "description": "Environmental review documentation for applicable projects",
+      "required": true,
+      "category": "environmental",
+      "acceptedFormats": ["PDF"],
+      "maxFileSize": 50,
+      "notes": "May require Phase I/II Environmental Site Assessment",
+      "conditionalRequirement": {
+        "condition": "Required for projects subject to CEQR or involving hazardous materials",
+        "dependsOn": []
+      }
+    },
+    {
+      "id": "landmarks",
+      "name": "Landmarks Preservation Commission Approval",
+      "description": "LPC approval for work in designated historic districts",
+      "required": false,
+      "category": "administrative",
+      "acceptedFormats": ["PDF"],
+      "maxFileSize": 10,
+      "notes": "Check if property is in a historic district before applying",
+      "exampleUrl": "https://www.nyc.gov/site/lpc/index.page",
+      "conditionalRequirement": {
+        "condition": "Required only for buildings in historic districts or individual landmarks",
+        "dependsOn": []
+      }
+    },
+    {
+      "id": "sidewalk-shed",
+      "name": "Sidewalk Shed Plans",
+      "description": "Temporary sidewalk protection plans if construction affects pedestrian areas",
+      "required": false,
+      "category": "site-plan",
+      "acceptedFormats": ["PDF", "DWG"],
+      "maxFileSize": 20,
+      "notes": "Separate permit may be required from DOT",
+      "conditionalRequirement": {
+        "condition": "Required if construction work affects public right-of-way",
+        "dependsOn": []
+      }
+    }
+  ],
+  "generalRequirements": {
+    "submissionMethod": ["electronic"],
+    "electronicPortal": "DOB NOW: Build",
+    "numberOfCopies": 0,
+    "fees": {
+      "calculationMethod": "Based on construction cost and building type",
+      "feeScheduleUrl": "https://www.nyc.gov/site/buildings/business/fee-structure.page"
+    }
+  },
+  "processingTimeline": {
+    "averageReviewDays": 30,
+    "expeditedAvailable": true,
+    "expeditedDays": 10
+  }
+}

@@ -1,0 +1,87 @@
+# -------------------------------------------------------------------
+# 1. PYTHON BACKEND (General & Virtual Environment)
+# -------------------------------------------------------------------
+# Virtual Environment
+# Exclude the environment folder (e.g., created by venv or conda)
+.venv/
+env/
+venv/
+ENV/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+eggs/
+*.egg-info/
+.installed.cfg
+*.egg
+/htmlcov/
+
+# Testing and Documentation
+.pytest_cache/
+.coverage
+.tox/
+docs/_build/
+
+# IDE files (e.g., PyCharm, VS Code)
+.vscode/
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# -------------------------------------------------------------------
+# 2. SQLITE DATABASE
+# -------------------------------------------------------------------
+# Exclude the actual database file
+# Replace 'db.sqlite3' with your actual database filename if different
+*.sqlite3
+*.db
+*.sqlite
+
+# Database migrations (optional, but often a good idea if generated)
+# Only exclude if you are NOT using an ORM like Django/Flask-SQLAlchemy to manage them
+# If you are managing migrations, you probably want to keep the migration files.
+# /migrations/
+
+# -------------------------------------------------------------------
+# 3. REACT FRONTEND (Node.js & Build Artifacts)
+# -------------------------------------------------------------------
+# Dependency directory
+/node_modules
+
+# Production build artifacts
+/build
+/dist
+/out
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# OS & system files
+.DS_Store
+Thumbs.db
+
+# Misc files
+.cache
+.npm
+/temp
+
+# -------------------------------------------------------------------
+# 4. CONFIGURATION/SECRETS
+# -------------------------------------------------------------------
+# Environment variables and secrets
+# IMPORTANT: Never commit files containing API keys, passwords, or tokens.
+.env
+.env.*
+!.env.example # Keep an example file for collaborators

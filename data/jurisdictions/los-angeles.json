@@ -1,0 +1,216 @@
+{
+  "jurisdiction": {
+    "id": "la",
+    "name": "Los Angeles",
+    "state": "CA",
+    "type": "city",
+    "website": "https://www.ladbs.org",
+    "contactInfo": {
+      "phone": "213-482-0000",
+      "email": "ladbs@lacity.org",
+      "address": "201 N. Figueroa Street, Los Angeles, CA 90012"
+    }
+  },
+  "version": "2024.1",
+  "effectiveDate": "2024-01-01",
+  "lastUpdated": "2024-10-01T00:00:00Z",
+  "permitTypes": ["new-construction", "alteration", "addition"],
+  "checklist": [
+    {
+      "id": "plot-plan",
+      "name": "Plot Plan/Site Plan",
+      "description": "Detailed site plan showing building location, setbacks, parking, and site dimensions",
+      "required": true,
+      "category": "site-plan",
+      "acceptedFormats": ["PDF", "DWG"],
+      "maxFileSize": 50,
+      "validationRules": {
+        "requiredKeywords": ["site plan", "setback", "property line"],
+        "minPages": 1,
+        "mustBeProfessionallySealed": true
+      },
+      "notes": "Must show all structures, driveways, and easements"
+    },
+    {
+      "id": "arch-plans",
+      "name": "Architectural Plans (Floor, Roof, Elevations)",
+      "description": "Complete architectural drawings including floor plans, roof plan, and all elevations",
+      "required": true,
+      "category": "architectural",
+      "acceptedFormats": ["PDF", "DWG"],
+      "maxFileSize": 100,
+      "validationRules": {
+        "minPages": 4,
+        "mustBeProfessionallySealed": true,
+        "requiredKeywords": ["floor plan", "elevation", "roof plan"]
+      },
+      "notes": "All plans must be drawn to scale with dimensions"
+    },
+    {
+      "id": "foundation-structural",
+      "name": "Foundation and Structural Plans",
+      "description": "Structural engineering plans and calculations",
+      "required": true,
+      "category": "structural",
+      "acceptedFormats": ["PDF", "DWG"],
+      "maxFileSize": 100,
+      "validationRules": {
+        "mustBeProfessionallySealed": true,
+        "requiredKeywords": ["structural", "foundation", "engineering"]
+      },
+      "notes": "Must be stamped by California-licensed Structural Engineer"
+    },
+    {
+      "id": "soils-report",
+      "name": "Soils/Geotechnical Report",
+      "description": "Geotechnical investigation report for foundation design",
+      "required": true,
+      "category": "structural",
+      "acceptedFormats": ["PDF"],
+      "maxFileSize": 50,
+      "validationRules": {
+        "requiredKeywords": ["geotechnical", "soil", "bearing capacity"],
+        "mustBeProfessionallySealed": true
+      },
+      "notes": "Required for all new construction and some major additions"
+    },
+    {
+      "id": "title24",
+      "name": "Title 24 Energy Calculations",
+      "description": "California Energy Code compliance calculations and forms",
+      "required": true,
+      "category": "energy-compliance",
+      "acceptedFormats": ["PDF", "XML"],
+      "maxFileSize": 20,
+      "validationRules": {
+        "requiredKeywords": ["Title 24", "energy", "compliance"]
+      },
+      "exampleUrl": "https://www.energy.ca.gov/programs-and-topics/programs/building-energy-efficiency-standards",
+      "notes": "Must include CF-1R and CF-2R forms registered with CEC"
+    },
+    {
+      "id": "calgreen",
+      "name": "CalGreen Checklist",
+      "description": "California Green Building Standards Code compliance checklist",
+      "required": true,
+      "category": "environmental",
+      "acceptedFormats": ["PDF"],
+      "maxFileSize": 10,
+      "validationRules": {
+        "requiredKeywords": ["CalGreen", "green building"]
+      },
+      "notes": "Mandatory and voluntary measures must be identified"
+    },
+    {
+      "id": "electrical",
+      "name": "Electrical Plans",
+      "description": "Electrical system plans showing service, panels, circuits, and devices",
+      "required": true,
+      "category": "electrical",
+      "acceptedFormats": ["PDF", "DWG"],
+      "maxFileSize": 50,
+      "validationRules": {
+        "requiredKeywords": ["electrical", "panel", "service"],
+        "mustBeProfessionallySealed": false
+      },
+      "notes": "Can be prepared by licensed electrician or engineer"
+    },
+    {
+      "id": "plumbing",
+      "name": "Plumbing Plans",
+      "description": "Plumbing system layout including water supply and drainage",
+      "required": true,
+      "category": "plumbing",
+      "acceptedFormats": ["PDF", "DWG"],
+      "maxFileSize": 50,
+      "validationRules": {
+        "requiredKeywords": ["plumbing", "water", "drain"]
+      },
+      "notes": "Show all fixtures, pipe sizes, and water heater location"
+    },
+    {
+      "id": "mechanical",
+      "name": "Mechanical Plans",
+      "description": "HVAC system plans and equipment specifications",
+      "required": true,
+      "category": "mechanical",
+      "acceptedFormats": ["PDF", "DWG"],
+      "maxFileSize": 50,
+      "validationRules": {
+        "requiredKeywords": ["mechanical", "HVAC", "ventilation"]
+      },
+      "notes": "Include Manual J load calculations for residential projects"
+    },
+    {
+      "id": "grading-drainage",
+      "name": "Grading and Drainage Plans",
+      "description": "Site grading, drainage, and erosion control plans",
+      "required": true,
+      "category": "site-plan",
+      "acceptedFormats": ["PDF", "DWG"],
+      "maxFileSize": 50,
+      "validationRules": {
+        "requiredKeywords": ["grading", "drainage", "erosion"],
+        "mustBeProfessionallySealed": true
+      },
+      "notes": "Required if site work exceeds 50 cubic yards"
+    },
+    {
+      "id": "ceqa",
+      "name": "CEQA Documentation",
+      "description": "California Environmental Quality Act compliance documents",
+      "required": false,
+      "category": "environmental",
+      "acceptedFormats": ["PDF"],
+      "maxFileSize": 100,
+      "conditionalRequirement": {
+        "condition": "Required for projects that may have significant environmental impact",
+        "dependsOn": []
+      },
+      "notes": "Consult with Planning Department for CEQA clearance"
+    },
+    {
+      "id": "historic",
+      "name": "Historic Resource Assessment",
+      "description": "Historic preservation review for properties 50+ years old",
+      "required": false,
+      "category": "administrative",
+      "acceptedFormats": ["PDF"],
+      "maxFileSize": 50,
+      "conditionalRequirement": {
+        "condition": "Required for buildings built before 1974 in certain areas",
+        "dependsOn": []
+      },
+      "exampleUrl": "https://planning.lacity.org/preservation-design/historic-resources",
+      "notes": "Check with Office of Historic Resources"
+    },
+    {
+      "id": "traffic",
+      "name": "Traffic Study",
+      "description": "Traffic impact analysis for large developments",
+      "required": false,
+      "category": "other",
+      "acceptedFormats": ["PDF"],
+      "maxFileSize": 50,
+      "conditionalRequirement": {
+        "condition": "Required for projects generating significant traffic (typically 100+ trips/day)",
+        "dependsOn": []
+      },
+      "notes": "Prepared by qualified traffic engineer"
+    }
+  ],
+  "generalRequirements": {
+    "submissionMethod": ["electronic"],
+    "electronicPortal": "ePlanLA",
+    "numberOfCopies": 0,
+    "fees": {
+      "calculationMethod": "Based on valuation using Building Valuation Data table",
+      "feeScheduleUrl": "https://www.ladbs.org/services/core-services/plan-check-permit/plan-check-permit-fees"
+    }
+  },
+  "processingTimeline": {
+    "averageReviewDays": 20,
+    "expeditedAvailable": true,
+    "expeditedDays": 5
+  }
+}

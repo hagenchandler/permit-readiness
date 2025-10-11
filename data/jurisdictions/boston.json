@@ -1,0 +1,213 @@
+{
+  "jurisdiction": {
+    "id": "boston",
+    "name": "Boston",
+    "state": "MA",
+    "type": "city",
+    "website": "https://www.boston.gov/departments/inspectional-services",
+    "contactInfo": {
+      "phone": "617-635-5300",
+      "email": "isd@boston.gov",
+      "address": "1 City Hall Square, Boston, MA 02201"
+    }
+  },
+  "version": "2024.1",
+  "effectiveDate": "2024-01-01",
+  "lastUpdated": "2024-10-01T00:00:00Z",
+  "permitTypes": ["new-construction", "alteration", "addition"],
+  "checklist": [
+    {
+      "id": "site-plan",
+      "name": "Site Plan with Setbacks",
+      "description": "Detailed site plan showing building location, property lines, setbacks, and dimensions",
+      "required": true,
+      "category": "site-plan",
+      "acceptedFormats": ["PDF", "DWG"],
+      "maxFileSize": 50,
+      "validationRules": {
+        "requiredKeywords": ["site plan", "setback", "property line"],
+        "minPages": 1,
+        "mustBeProfessionallySealed": true
+      },
+      "notes": "Must show all existing and proposed structures"
+    },
+    {
+      "id": "arch-drawings",
+      "name": "Architectural Drawings (Plans, Elevations, Sections)",
+      "description": "Complete architectural plans including floor plans, all elevations, and building sections",
+      "required": true,
+      "category": "architectural",
+      "acceptedFormats": ["PDF", "DWG"],
+      "maxFileSize": 100,
+      "validationRules": {
+        "minPages": 4,
+        "mustBeProfessionallySealed": true,
+        "requiredKeywords": ["floor plan", "elevation", "section"]
+      },
+      "notes": "All drawings must be to scale with dimensions clearly marked"
+    },
+    {
+      "id": "structural",
+      "name": "Structural Plans and Calculations",
+      "description": "Structural engineering plans and design calculations",
+      "required": true,
+      "category": "structural",
+      "acceptedFormats": ["PDF", "DWG", "DOCX"],
+      "maxFileSize": 100,
+      "validationRules": {
+        "mustBeProfessionallySealed": true,
+        "requiredKeywords": ["structural", "load", "foundation"]
+      },
+      "notes": "Must be stamped by Massachusetts-registered Professional Engineer"
+    },
+    {
+      "id": "zoning",
+      "name": "Zoning Analysis and Compliance Statement",
+      "description": "Detailed zoning analysis demonstrating code compliance",
+      "required": true,
+      "category": "zoning",
+      "acceptedFormats": ["PDF", "DOCX"],
+      "maxFileSize": 20,
+      "validationRules": {
+        "requiredKeywords": ["zoning", "compliance", "FAR"]
+      },
+      "notes": "Include dimensional analysis (FAR, height, setbacks, lot coverage)"
+    },
+    {
+      "id": "energy-code",
+      "name": "Building Energy Code Compliance Form",
+      "description": "Massachusetts Stretch Energy Code compliance documentation",
+      "required": true,
+      "category": "energy-compliance",
+      "acceptedFormats": ["PDF"],
+      "maxFileSize": 20,
+      "validationRules": {
+        "requiredKeywords": ["energy", "stretch code", "HERS"]
+      },
+      "notes": "Boston follows MA Stretch Energy Code (780 CMR Appendix 115.AA)"
+    },
+    {
+      "id": "mechanical",
+      "name": "Mechanical/HVAC Plans",
+      "description": "Heating, cooling, and ventilation system plans",
+      "required": true,
+      "category": "mechanical",
+      "acceptedFormats": ["PDF", "DWG"],
+      "maxFileSize": 50,
+      "validationRules": {
+        "requiredKeywords": ["mechanical", "HVAC", "ventilation"]
+      },
+      "notes": "Include equipment schedules and ductwork layout"
+    },
+    {
+      "id": "plumbing",
+      "name": "Plumbing Plans",
+      "description": "Plumbing system layout showing fixtures, pipes, and connections",
+      "required": true,
+      "category": "plumbing",
+      "acceptedFormats": ["PDF", "DWG"],
+      "maxFileSize": 50,
+      "validationRules": {
+        "requiredKeywords": ["plumbing", "fixture", "drain"]
+      },
+      "notes": "Show all fixtures, water service, and sanitary drainage"
+    },
+    {
+      "id": "electrical",
+      "name": "Electrical Plans",
+      "description": "Electrical system plans including service, panels, and circuits",
+      "required": true,
+      "category": "electrical",
+      "acceptedFormats": ["PDF", "DWG"],
+      "maxFileSize": 50,
+      "validationRules": {
+        "requiredKeywords": ["electrical", "panel", "service"]
+      },
+      "notes": "Include panel schedules and load calculations"
+    },
+    {
+      "id": "fire-protection",
+      "name": "Fire Protection Plans",
+      "description": "Fire alarm and sprinkler system plans",
+      "required": true,
+      "category": "fire-safety",
+      "acceptedFormats": ["PDF", "DWG"],
+      "maxFileSize": 50,
+      "validationRules": {
+        "requiredKeywords": ["fire", "sprinkler", "alarm"]
+      },
+      "notes": "Required for commercial and multi-family residential buildings"
+    },
+    {
+      "id": "stormwater",
+      "name": "Stormwater Management Plan",
+      "description": "Stormwater management and drainage design",
+      "required": true,
+      "category": "environmental",
+      "acceptedFormats": ["PDF"],
+      "maxFileSize": 30,
+      "validationRules": {
+        "requiredKeywords": ["stormwater", "drainage", "runoff"]
+      },
+      "notes": "Must comply with Boston Water and Sewer Commission standards"
+    },
+    {
+      "id": "traffic",
+      "name": "Traffic Impact Study",
+      "description": "Transportation impact assessment for large projects",
+      "required": false,
+      "category": "other",
+      "acceptedFormats": ["PDF"],
+      "maxFileSize": 50,
+      "conditionalRequirement": {
+        "condition": "Required for projects generating 100+ peak hour trips",
+        "dependsOn": []
+      },
+      "notes": "Coordinate with Boston Transportation Department"
+    },
+    {
+      "id": "environmental",
+      "name": "Environmental Notification Form",
+      "description": "MEPA environmental review for qualifying projects",
+      "required": false,
+      "category": "environmental",
+      "acceptedFormats": ["PDF"],
+      "maxFileSize": 50,
+      "conditionalRequirement": {
+        "condition": "Required for projects meeting MEPA thresholds",
+        "dependsOn": []
+      },
+      "exampleUrl": "https://www.mass.gov/orgs/massachusetts-environmental-policy-act-office",
+      "notes": "Check MEPA review thresholds"
+    },
+    {
+      "id": "historic",
+      "name": "Historic Commission Approval",
+      "description": "Boston Landmarks Commission review and approval",
+      "required": false,
+      "category": "administrative",
+      "acceptedFormats": ["PDF"],
+      "maxFileSize": 30,
+      "conditionalRequirement": {
+        "condition": "Required for work on designated landmarks or in historic districts",
+        "dependsOn": []
+      },
+      "exampleUrl": "https://www.boston.gov/departments/landmarks-commission",
+      "notes": "Required in Back Bay, Beacon Hill, and other historic districts"
+    }
+  ],
+  "generalRequirements": {
+    "submissionMethod": ["electronic", "paper"],
+    "electronicPortal": "ISD Online Permit Center",
+    "numberOfCopies": 2,
+    "fees": {
+      "calculationMethod": "Based on estimated construction cost",
+      "feeScheduleUrl": "https://www.boston.gov/departments/inspectional-services/building-permit-fees"
+    }
+  },
+  "processingTimeline": {
+    "averageReviewDays": 30,
+    "expeditedAvailable": false,
+    "expeditedDays": null
+  }
+}
