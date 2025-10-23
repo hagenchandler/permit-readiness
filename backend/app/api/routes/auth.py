@@ -67,12 +67,14 @@ def login(user_credentials: UserLogin, db: Session = Depends(get_db)):
             detail="Inactive user"
         )
     
-    # Create access token
+    # Create access token - store user ID as string
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
-        data={"sub": user.id},
+        data={"sub": str(user.id)},
         expires_delta=access_token_expires
     )
+    
+    print(f"Login successful for user {user.username} (ID: {user.id})")
     
     return {"access_token": access_token, "token_type": "bearer"}
 

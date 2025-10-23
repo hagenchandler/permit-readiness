@@ -33,7 +33,6 @@ const PermitReadinessApp = () => {
     notes: ''
   });
   
-  // Auth state
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [loginForm, setLoginForm] = useState({ username: '', password: '' });
@@ -46,7 +45,6 @@ const PermitReadinessApp = () => {
 
   const jurisdictions = Object.keys(jurisdictionFiles);
 
-  // Check auth on mount
   useEffect(() => {
     if (token) {
       fetchCurrentUser();
@@ -59,7 +57,12 @@ const PermitReadinessApp = () => {
     }
   }, [user]);
 
-  // Fetch current user info
+  useEffect(() => {
+    if (selectedJurisdiction && !activeProject) {
+      loadJurisdictionData(selectedJurisdiction);
+    }
+  }, [selectedJurisdiction, activeProject]);
+
   const fetchCurrentUser = async (authToken = null) => {
     const tokenToUse = authToken || token;
     
@@ -69,24 +72,17 @@ const PermitReadinessApp = () => {
     }
     
     try {
-      console.log('Fetching user with token:', tokenToUse?.substring(0, 20) + '...');
       const response = await fetch(`${API_BASE_URL}/auth/me`, {
         headers: {
           'Authorization': `Bearer ${tokenToUse}`
         }
       });
       
-      console.log('Fetch user response status:', response.status);
-      
       if (response.ok) {
         const userData = await response.json();
-        console.log('User data:', userData);
         setUser(userData);
         setView('home');
       } else {
-        const errorData = await response.json();
-        console.error('Fetch user error:', errorData);
-        // Token invalid, clear it
         localStorage.removeItem('token');
         setToken(null);
         setView('login');
@@ -99,7 +95,6 @@ const PermitReadinessApp = () => {
     }
   };
 
-  // Auth functions
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -116,7 +111,6 @@ const PermitReadinessApp = () => {
         const data = await response.json();
         localStorage.setItem('token', data.access_token);
         setToken(data.access_token);
-        // Pass the token directly since state might not be updated yet
         await fetchCurrentUser(data.access_token);
       } else {
         const errorData = await response.json();
@@ -135,7 +129,6 @@ const PermitReadinessApp = () => {
     setError(null);
     
     try {
-      console.log('Registering user:', registerForm.username);
       const response = await fetch(`${API_BASE_URL}/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -143,12 +136,8 @@ const PermitReadinessApp = () => {
       });
       
       const data = await response.json();
-      console.log('Registration response:', data);
       
       if (response.ok) {
-        console.log('Registration successful, attempting login...');
-        
-        // Auto-login after registration
         const loginResponse = await fetch(`${API_BASE_URL}/auth/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -159,16 +148,12 @@ const PermitReadinessApp = () => {
         });
         
         const loginData = await loginResponse.json();
-        console.log('Login response:', loginData);
         
         if (loginResponse.ok) {
           localStorage.setItem('token', loginData.access_token);
           setToken(loginData.access_token);
-          // Pass the token directly since state might not be updated yet
           await fetchCurrentUser(loginData.access_token);
         } else {
-          // Registration succeeded but auto-login failed
-          console.error('Auto-login failed:', loginData);
           setView('login');
           setError('Account created! Please log in manually.');
         }
@@ -176,7 +161,6 @@ const PermitReadinessApp = () => {
         setError(data.detail || 'Registration failed');
       }
     } catch (err) {
-      console.error('Registration error:', err);
       setError('Connection error. Please try again.');
     } finally {
       setLoading(false);
@@ -192,15 +176,14 @@ const PermitReadinessApp = () => {
     setView('login');
   };
 
-  useEffect(() => {
-    if (selectedJurisdiction && !activeProject) {
-      loadJurisdictionData(selectedJurisdiction);
-    }
-  }, [selectedJurisdiction, activeProject]);
-
   const loadProjects = async () => {
+    const authToken = localStorage.getItem('token');
     try {
-      const response = await fetch(`${API_BASE_URL}/projects/`);
+      const response = await fetch(`${API_BASE_URL}/projects/`, {
+        headers: {
+          'Authorization': `Bearer ${authToken}`
+        }
+      });
       if (response.ok) {
         const data = await response.json();
         setProjects(data);
@@ -211,10 +194,14 @@ const PermitReadinessApp = () => {
   };
 
   const createProject = async (projectData) => {
+    const authToken = localStorage.getItem('token');
     try {
       const response = await fetch(`${API_BASE_URL}/projects/`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${authToken}`
+        },
         body: JSON.stringify(projectData)
       });
       
@@ -229,8 +216,13 @@ const PermitReadinessApp = () => {
   };
 
   const loadProject = async (projectId) => {
+    const authToken = localStorage.getItem('token');
     try {
-      const response = await fetch(`${API_BASE_URL}/projects/${projectId}`);
+      const response = await fetch(`${API_BASE_URL}/projects/${projectId}`, {
+        headers: {
+          'Authorization': `Bearer ${authToken}`
+        }
+      });
       if (response.ok) {
         const project = await response.json();
         return project;
@@ -241,9 +233,13 @@ const PermitReadinessApp = () => {
   };
 
   const deleteProject = async (projectId) => {
+    const authToken = localStorage.getItem('token');
     try {
       const response = await fetch(`${API_BASE_URL}/projects/${projectId}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${authToken}`
+        }
       });
       if (response.ok) {
         loadProjects();
@@ -254,6 +250,7 @@ const PermitReadinessApp = () => {
   };
 
   const uploadDocument = async (projectId, checklistItemId, file) => {
+    const authToken = localStorage.getItem('token');
     try {
       const formData = new FormData();
       formData.append('project_id', projectId);
@@ -262,6 +259,9 @@ const PermitReadinessApp = () => {
 
       const response = await fetch(`${API_BASE_URL}/documents/`, {
         method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${authToken}`
+        },
         body: formData
       });
 
@@ -276,9 +276,13 @@ const PermitReadinessApp = () => {
   };
 
   const deleteDocument = async (documentId) => {
+    const authToken = localStorage.getItem('token');
     try {
       const response = await fetch(`${API_BASE_URL}/documents/${documentId}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${authToken}`
+        }
       });
       return response.ok;
     } catch (err) {
@@ -319,20 +323,28 @@ const PermitReadinessApp = () => {
           jurisdiction_data: jurisdictionData
         });
 
+        if (!project) {
+          throw new Error('No project returned from API');
+        }
+
         setActiveProject(project);
         setUploadedFiles({});
         setValidationResults({});
         setShowReport(false);
         setView('dashboard');
       } catch (err) {
-        setError('Failed to create project');
+        console.error('Error in handleStartProject:', err);
+        setError('Failed to create project: ' + err.message);
       } finally {
         setLoading(false);
       }
+    } else {
+      alert('Please fill in all required fields');
     }
   };
 
   const handleOpenProject = async (projectId) => {
+    const authToken = localStorage.getItem('token');
     setLoading(true);
     try {
       const project = await loadProject(projectId);
@@ -351,9 +363,12 @@ const PermitReadinessApp = () => {
             type: doc.file_type
           };
           
-          // Fetch validation results for this document
           try {
-            const validationResponse = await fetch(`${API_BASE_URL}/documents/${doc.id}/validation`);
+            const validationResponse = await fetch(`${API_BASE_URL}/documents/${doc.id}/validation`, {
+              headers: {
+                'Authorization': `Bearer ${authToken}`
+              }
+            });
             if (validationResponse.ok) {
               const validationData = await validationResponse.json();
               validations[doc.checklist_item_id] = validationData;
@@ -402,6 +417,7 @@ const PermitReadinessApp = () => {
       }
 
       setLoading(true);
+      const authToken = localStorage.getItem('token');
       try {
         const document = await uploadDocument(activeProject.id, itemId, file);
         
@@ -416,10 +432,13 @@ const PermitReadinessApp = () => {
           }
         }));
         
-        // Fetch validation results if it's a PDF
         if (file.name.toLowerCase().endsWith('.pdf')) {
           try {
-            const validationResponse = await fetch(`${API_BASE_URL}/documents/${document.id}/validation`);
+            const validationResponse = await fetch(`${API_BASE_URL}/documents/${document.id}/validation`, {
+              headers: {
+                'Authorization': `Bearer ${authToken}`
+              }
+            });
             if (validationResponse.ok) {
               const validationData = await validationResponse.json();
               setValidationResults(prev => ({
@@ -467,9 +486,14 @@ const PermitReadinessApp = () => {
   const handleDownloadReport = async () => {
     if (!activeProject) return;
     
+    const authToken = localStorage.getItem('token');
     setLoading(true);
     try {
-      const response = await fetch(`${API_BASE_URL}/projects/${activeProject.id}/report`);
+      const response = await fetch(`${API_BASE_URL}/projects/${activeProject.id}/report`, {
+        headers: {
+          'Authorization': `Bearer ${authToken}`
+        }
+      });
       
       if (response.ok) {
         const blob = await response.blob();
@@ -498,6 +522,7 @@ const PermitReadinessApp = () => {
       return;
     }
 
+    const authToken = localStorage.getItem('token');
     setLoading(true);
     try {
       const customItem = {
@@ -513,16 +538,17 @@ const PermitReadinessApp = () => {
 
       const response = await fetch(`${API_BASE_URL}/projects/${activeProject.id}/custom-items`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${authToken}`
+        },
         body: JSON.stringify(customItem)
       });
 
       if (response.ok) {
-        // Reload the project to get updated checklist
         const updatedProject = await loadProject(activeProject.id);
         setActiveProject(updatedProject);
         
-        // Reset form
         setCustomItemForm({
           name: '',
           description: '',
@@ -550,18 +576,20 @@ const PermitReadinessApp = () => {
       return;
     }
 
+    const authToken = localStorage.getItem('token');
     setLoading(true);
     try {
       const response = await fetch(`${API_BASE_URL}/projects/${activeProject.id}/custom-items/${itemId}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${authToken}`
+        }
       });
 
       if (response.ok) {
-        // Reload the project to get updated checklist
         const updatedProject = await loadProject(activeProject.id);
         setActiveProject(updatedProject);
         
-        // Remove any uploaded files for this item
         const newFiles = { ...uploadedFiles };
         delete newFiles[itemId];
         setUploadedFiles(newFiles);
@@ -590,7 +618,6 @@ const PermitReadinessApp = () => {
     return 'optional';
   };
 
-  // Login View
   if (view === 'login') {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-8">
@@ -602,9 +629,7 @@ const PermitReadinessApp = () => {
 
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Username
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Username</label>
               <input
                 type="text"
                 value={loginForm.username}
@@ -615,9 +640,7 @@ const PermitReadinessApp = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Password
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
               <input
                 type="password"
                 value={loginForm.password}
@@ -661,7 +684,6 @@ const PermitReadinessApp = () => {
     );
   }
 
-  // Register View
   if (view === 'register') {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-8">
@@ -673,9 +695,7 @@ const PermitReadinessApp = () => {
 
           <form onSubmit={handleRegister} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Username
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Username</label>
               <input
                 type="text"
                 value={registerForm.username}
@@ -686,9 +706,7 @@ const PermitReadinessApp = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Email
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
               <input
                 type="email"
                 value={registerForm.email}
@@ -699,9 +717,7 @@ const PermitReadinessApp = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Full Name (Optional)
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Full Name (Optional)</label>
               <input
                 type="text"
                 value={registerForm.full_name}
@@ -711,9 +727,7 @@ const PermitReadinessApp = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Password
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
               <input
                 type="password"
                 value={registerForm.password}
@@ -1106,10 +1120,7 @@ const PermitReadinessApp = () => {
 
             <div className="flex gap-4">
               <button 
-                onClick={() => {
-                  console.log('Download button clicked!', activeProject?.id);
-                  handleDownloadReport();
-                }}
+                onClick={handleDownloadReport}
                 disabled={loading}
                 className="flex-1 bg-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 disabled:bg-gray-400 flex items-center justify-center gap-2"
               >
@@ -1247,11 +1258,6 @@ const PermitReadinessApp = () => {
             <div className="space-y-3 max-h-[600px] overflow-y-auto">
               {checklist.map(item => {
                 const status = getStatus(item);
-                
-                // Debug: Log if item has emptyPdfUrl
-                if (item.emptyPdfUrl) {
-                  console.log(`Item ${item.name} has emptyPdfUrl:`, item.emptyPdfUrl);
-                }
                 
                 return (
                   <div

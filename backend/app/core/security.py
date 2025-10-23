@@ -9,7 +9,7 @@ from app.core.database import get_db
 from app.models.user import User
 
 # Configuration
-SECRET_KEY = "your-secret-key-change-this-in-production"  # TODO: Move to environment variable
+SECRET_KEY = "your-secret-key-change-this-in-production"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7  # 7 days
 
@@ -46,10 +46,12 @@ async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = De
     
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        user_id: int = payload.get("sub")
-        if user_id is None:
+        user_id_str: str = payload.get("sub")
+        if user_id_str is None:
             raise credentials_exception
-    except JWTError:
+        user_id = int(user_id_str)  # Convert string to int
+    except (JWTError, ValueError, TypeError) as e:
+        print(f"Token decode error: {e}")
         raise credentials_exception
     
     user = db.query(User).filter(User.id == user_id).first()
