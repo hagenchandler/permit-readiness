@@ -288,20 +288,7 @@ npm run build
 # - Use production ASGI server
 ```
 
-### Code Style
-
-**Frontend:**
-- ESLint for linting
-- Prettier for formatting
-
-**Backend:**
-- Black for code formatting
-- Flake8 for linting
-- Type hints encouraged
-
 ## Deployment
-
-See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed deployment instructions.
 
 **Quick Overview:**
 1. **Frontend**: Deploy to Vercel or Netlify
@@ -362,23 +349,7 @@ Contributions are welcome! Please follow these steps:
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Support
 
-For issues, questions, or suggestions:
-- Email: support@permitreadiness.example.com
-- Issues: [GitHub Issues](https://github.com/yourusername/permit-readiness/issues)
-- Discussions: [GitHub Discussions](https://github.com/yourusername/permit-readiness/discussions)
-
-## Acknowledgments
-
-- Jurisdiction requirement data compiled from public sources
-- Icons by [Lucide](https://lucide.dev/)
-- UI inspiration from modern SaaS applications
-- Built with guidance from the developer community
-
-## Authors
-
-- **Your Name** - *Initial work* - [YourGitHub](https://github.com/yourusername)
 
 ---
 
